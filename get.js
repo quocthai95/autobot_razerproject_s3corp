@@ -1,5 +1,5 @@
 var robot = require("robotjs");
-
+var ncp = require("copy-paste");
 // Get Position of mouse base on X, Y coordinate
 var mouse = robot.getMousePos();
 
