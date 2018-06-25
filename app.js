@@ -43,15 +43,73 @@ function searchSKUVariant(data) {
     robot.keyTap('f', 'control');
     robot.typeString(data);
     robot.keyTap('enter');
-};
+}
+
+function clonePromotionFillData(data) {
+    robot.keyTap('tab', 'alt');
+    robot.moveMouseSmooth(898, 350);
+    robot.mouseClick();
+    robot.keyTap('a', 'control');
+    robot.keyTap('backspace');
+    robot.typeString(data[1]);
+    robot.moveMouseSmooth(466, 494);
+    robot.mouseClick();
+    robot.keyTap('a', 'control');
+    robot.keyTap('backspace');
+    robot.typeString(data[2]);
+    robot.moveMouseSmooth(611, 475);
+    robot.mouseClick('left', true);
+    robot.setMouseDelay(4000);
+    robot.moveMouseSmooth(196, 306);
+    robot.setMouseDelay(2000);
+    robot.mouseClick();
+    robot.moveMouseSmooth(254, 481);
+    robot.mouseClick('left', true);
+    robot.moveMouseSmooth(543, 646);
+    robot.setMouseDelay(10);
+    robot.mouseClick();
+    robot.keyToggle('shift', 'down');
+    robot.moveMouseSmooth(628, 825);
+    robot.mouseClick();
+    robot.keyToggle('shift', 'up');
+    robot.mouseClick('right');
+    robot.moveMouseSmooth(704, 895);
+    robot.mouseClick();
+    robot.moveMouseSmooth(740, 157);
+    robot.setMouseDelay(2000);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(614, 646);
+    robot.mouseClick('right');
+    robot.moveMouseSmooth(686, 692);
+    robot.setMouseDelay(5000);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(620, 267);
+    robot.mouseClick();
+    robot.typeString(data[3]);
+    robot.moveMouseSmooth(202, 423);
+    robot.mouseClick();
+
+
+
+    // robot.moveMouseSmooth(287, 296);
+    // robot.mouseClick();
+    
+}
 
 var callback = function(code, data, err)
 {
-    switch (data.split(' ')[0]) {
+    const arrData = data.split(',');
+    switch (arrData[0]) {
         case '1':
-        searchSKUVariant(data.split(' ')[1]);
-            break;
-    
+        searchSKUVariant(arrData[1]);
+        break;
+        
+        case '2':
+        clonePromotionFillData(arrData);
+        break;
+
         default:
             break;
     }
@@ -69,6 +127,6 @@ var callback = function(code, data, err)
 }
 
 dialog.entry(`1 - Search by SKU Number (Variants)
-2 - Search by ????`, "Enter action", 0, callback);
+2 - Fill Promotion By Clone (Title, Description)`, "Enter action", 0, callback);
 
 
