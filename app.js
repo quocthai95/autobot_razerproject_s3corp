@@ -37,21 +37,38 @@ var dialog = require('dialog-node');
 // })
 
 //will be called after user closes the dialog
-var callback = function(code, retVal, stderr)
-{
-    robot.moveMouse(528, 124);
-    robot.mouseClick();
-    robot.keyToggle('control', 'down');
-    robot.keyTap('a');
-    robot.keyToggle('control', 'up');
-    robot.keyTap('backspace');
-    robot.typeString(retVal);
+
+function searchSKUVariant(data) {
+    robot.keyTap('tab', 'alt');
+    robot.keyTap('f', 'control');
+    robot.typeString(data);
     robot.keyTap('enter');
-    robot.setMouseDelay(2000);
-    robot.moveMouse(205, 300);
-    robot.mouseClick();
+};
+
+var callback = function(code, data, err)
+{
+    switch (data.split(' ')[0]) {
+        case '1':
+        searchSKUVariant(data.split(' ')[1]);
+            break;
+    
+        default:
+            break;
+    }
+    // robot.moveMouse(528, 124);
+    // robot.mouseClick();
+    // robot.keyToggle('control', 'down');
+    // robot.keyTap('a');
+    // robot.keyToggle('control', 'up');
+    // robot.keyTap('backspace');
+    // robot.typeString(retVal);
+    // robot.keyTap('enter');
+    // robot.setMouseDelay(2000);
+    // robot.moveMouse(205, 300);
+    // robot.mouseClick();
 }
 
-dialog.entry('Nhập SKU number: ', "Nhập data", 0, callback);
+dialog.entry(`1 - Search by SKU Number (Variants)
+2 - Search by ????`, "Enter action", 0, callback);
 
 
