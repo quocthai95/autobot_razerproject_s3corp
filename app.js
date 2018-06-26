@@ -263,7 +263,7 @@ var callback = function(code, data, err)
         case '2':
         createPartnerProduct(+arrData[1]);
         break;
-        
+
         case '3':
         createPromotionFillData(arrData);
         break;
@@ -286,6 +286,6 @@ var callback = function(code, data, err)
 
 dialog.entry(`1 - Search by SKU Number (Variants)
 2 - Create Partner Products in Promotion (Number of partner products)
-3 - Create new Promotion Partner (Title, Description)`, "Enter action", 0, callback);
+3 - Create new Promotion Partner (Title, Description, Name of Base Product)`, "Enter action", 0, callback);
 
 
