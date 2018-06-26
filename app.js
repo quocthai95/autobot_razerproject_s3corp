@@ -39,6 +39,16 @@ var ncp = require("copy-paste");
 
 //will be called after user closes the dialog
 
+// declare coordinates for partner products
+let [x, y] = [419, 672];
+let [nx, ny] = [444, 741];
+let [cx, cy] = [608, 670];
+let [fx, fy] = [781, 670];
+let mY = 25;
+imY = 0;
+let delay = 2000;
+
+// search by SKU number
 function searchSKUVariant(data) {
     robot.keyTap('tab', 'alt');
     robot.keyTap('f', 'control');
@@ -46,6 +56,117 @@ function searchSKUVariant(data) {
     robot.keyTap('enter');
 }
 
+
+// function createPartnerItem(add, key, keyRepeat) {
+//         robot.moveMouseSmooth(x, y);
+//         robot.mouseClick('right');
+//         robot.moveMouseSmooth(nx, ny);
+//         robot.setMouseDelay(3000 + delay);
+//         robot.mouseClick();
+//         robot.setMouseDelay(2000 + delay);
+//         robot.moveMouseSmooth(fx, fy + add);
+//         robot.setMouseDelay(10);
+//         robot.mouseClick();
+//         for(let i =0; i< keyRepeat ; i++) {
+//             robot.keyTap(key);
+//         }
+//         robot.setMouseDelay(3000 + delay);
+//         robot.setKeyboardDelay(3000 + delay);
+//         robot.keyTap('enter');
+//         // robot.keyTap('end');
+//          robot.setMouseDelay(10);
+//         robot.moveMouseSmooth(cx, cy + add);
+//         robot.mouseClick();
+//         robot.setKeyboardDelay(4000 + delay);
+//         robot.keyTap('a');
+//         robot.setKeyboardDelay(10);
+//         robot.keyTap('tab');
+// }
+
+function createPartnerItem(add, key, keyRepeat) {
+    robot.moveMouseSmooth(x, y);
+    robot.mouseClick('right');
+    robot.moveMouseSmooth(nx, ny);
+    robot.setMouseDelay(3000 + delay);
+    robot.mouseClick();
+    robot.keyTap('end');
+    robot.setMouseDelay(2000 + delay);
+    robot.moveMouseSmooth(fx, fy + add);
+    robot.setMouseDelay(10);
+    robot.mouseClick();
+    for(let i =0; i< keyRepeat ; i++) {
+        robot.keyTap(key);
+    }
+    robot.setMouseDelay(3000 + delay);
+    robot.setKeyboardDelay(3000 + delay);
+    robot.keyTap('enter');
+    robot.keyTap('end');
+     robot.setMouseDelay(10);
+    robot.moveMouseSmooth(cx, cy + add);
+    robot.mouseClick();
+    robot.setKeyboardDelay(4000 + delay);
+    robot.keyTap('a');
+    robot.setKeyboardDelay(10);
+    robot.keyTap('tab');
+}
+
+function createGroupPartnerItem(index) {
+      // create US
+      createPartnerItem((mY + imY )*(index +0), 'u', 3);
+      // create CA
+      createPartnerItem((mY + imY )*(index +1), 'c', 1);
+      // create EU
+      createPartnerItem((mY + imY )*(index +2), 'e', 7);
+      // create DE
+      createPartnerItem((mY + imY )*(index +3), 'e', 7);
+      // create FR
+      createPartnerItem((mY + imY )*(index +3), 'e', 7);
+      // create UK
+      createPartnerItem((mY + imY )*(index +3), 'g', 1);
+      // create SG
+      createPartnerItem((mY + imY )*(index +3), 's', 7);
+      // create HK
+      createPartnerItem((mY + imY )*(index +3), 'h', 1);
+}
+
+function createMoreGroupPartnerItem(index) {
+    // create US
+    createPartnerItem((mY + imY )*(index +3), 'u', 3);
+    // create CA
+    createPartnerItem((mY + imY )*(index +3), 'c', 1);
+    // create EU
+    createPartnerItem((mY + imY )*(index +3), 'e', 7);
+    // create DE
+    createPartnerItem((mY + imY )*(index +3), 'e', 7);
+    // create FR
+    createPartnerItem((mY + imY )*(index +3), 'e', 7);
+    // create UK
+    createPartnerItem((mY + imY )*(index +3), 'g', 1);
+    // create SG
+    createPartnerItem((mY + imY )*(index +3), 's', 7);
+    // create HK
+    createPartnerItem((mY + imY )*(index +3), 'h', 1);
+}
+// create partner products by number
+function createPartnerProduct(num) {
+        robot.keyTap('tab', 'alt');
+        robot.keyTap('end');
+        if ( num < 9) {
+            createGroupPartnerItem(0);
+        } else {
+            for (let i = 0; i < num; i+=8) {
+                if(i <8 ) {
+                    createGroupPartnerItem(0);
+                } else {
+                    createMoreGroupPartnerItem(0);
+                }
+            }
+        }
+}
+
+
+
+// create new promotion
 function createPromotionFillData(data) {
     robot.keyTap('tab', 'alt');
     // scroll to top of page
@@ -76,7 +197,7 @@ function createPromotionFillData(data) {
     // fill promotion group
     robot.moveMouseSmooth(611, 475);
     robot.mouseClick('left', true);
-    robot.setMouseDelay(4000);
+    robot.setMouseDelay(6000);
     robot.moveMouseSmooth(196, 306);
     robot.setMouseDelay(2000);
     robot.mouseClick();
@@ -153,6 +274,10 @@ var callback = function(code, data, err)
         createPromotionFillData(arrData);
         break;
 
+        case '3':
+        createPartnerProduct(+arrData[1]);
+        break;
+
         default:
             break;
     }
@@ -170,6 +295,7 @@ var callback = function(code, data, err)
 }
 
 dialog.entry(`1 - Search by SKU Number (Variants)
-2 - Create new Promotion Partner (Title, Description)`, "Enter action", 0, callback);
+2 - Create new Promotion Partner (Title, Description)
+3 - Create Partner Products in Promotion (Number of partner products)`, "Enter action", 0, callback);
 
 
