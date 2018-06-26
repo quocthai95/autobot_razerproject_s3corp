@@ -47,6 +47,7 @@ let [fx, fy] = [781, 670];
 let mY = 25;
 imY = 0;
 let delay = 2000;
+let kbdelay = 0;
 
 // search by SKU number
 function searchSKUVariant(data) {
@@ -98,13 +99,13 @@ function createPartnerItem(add, key, keyRepeat) {
         robot.keyTap(key);
     }
     robot.setMouseDelay(3000 + delay);
-    robot.setKeyboardDelay(3000 + delay);
+    robot.setKeyboardDelay(3000 + kbdelay);
     robot.keyTap('enter');
     robot.keyTap('end');
      robot.setMouseDelay(10);
     robot.moveMouseSmooth(cx, cy + add);
     robot.mouseClick();
-    robot.setKeyboardDelay(4000 + delay);
+    robot.setKeyboardDelay(4000 + kbdelay);
     robot.keyTap('a');
     robot.setKeyboardDelay(10);
     robot.keyTap('tab');
