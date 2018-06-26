@@ -40,13 +40,28 @@ var ncp = require("copy-paste");
 //will be called after user closes the dialog
 
 // declare coordinates for partner products
+
+// position of create product
 let [x, y] = [419, 672];
+
+// position of create new product
 let [nx, ny] = [444, 741];
+
+// position of currency
 let [cx, cy] = [608, 670];
+
+// position of partner product
 let [fx, fy] = [781, 670];
+
+// add more Y
 let mY = 25;
+
 imY = 0;
+
+// add more mouse delay
 let delay = 2000;
+
+// add more keyboard delay
 let kbdelay = 0;
 
 // search by SKU number
@@ -57,32 +72,6 @@ function searchSKUVariant(data) {
     robot.keyTap('enter');
 }
 
-
-// function createPartnerItem(add, key, keyRepeat) {
-//         robot.moveMouseSmooth(x, y);
-//         robot.mouseClick('right');
-//         robot.moveMouseSmooth(nx, ny);
-//         robot.setMouseDelay(3000 + delay);
-//         robot.mouseClick();
-//         robot.setMouseDelay(2000 + delay);
-//         robot.moveMouseSmooth(fx, fy + add);
-//         robot.setMouseDelay(10);
-//         robot.mouseClick();
-//         for(let i =0; i< keyRepeat ; i++) {
-//             robot.keyTap(key);
-//         }
-//         robot.setMouseDelay(3000 + delay);
-//         robot.setKeyboardDelay(3000 + delay);
-//         robot.keyTap('enter');
-//         // robot.keyTap('end');
-//          robot.setMouseDelay(10);
-//         robot.moveMouseSmooth(cx, cy + add);
-//         robot.mouseClick();
-//         robot.setKeyboardDelay(4000 + delay);
-//         robot.keyTap('a');
-//         robot.setKeyboardDelay(10);
-//         robot.keyTap('tab');
-// }
 
 function createPartnerItem(add, key, keyRepeat) {
     robot.moveMouseSmooth(x, y);
@@ -272,11 +261,11 @@ var callback = function(code, data, err)
         break;
         
         case '2':
-        createPromotionFillData(arrData);
-        break;
-
-        case '3':
         createPartnerProduct(+arrData[1]);
+        break;
+        
+        case '3':
+        createPromotionFillData(arrData);
         break;
 
         default:
@@ -296,7 +285,7 @@ var callback = function(code, data, err)
 }
 
 dialog.entry(`1 - Search by SKU Number (Variants)
-2 - Create new Promotion Partner (Title, Description)
-3 - Create Partner Products in Promotion (Number of partner products)`, "Enter action", 0, callback);
+2 - Create Partner Products in Promotion (Number of partner products)
+3 - Create new Promotion Partner (Title, Description)`, "Enter action", 0, callback);
 
 
