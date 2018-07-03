@@ -64,14 +64,175 @@ let delay = 2000;
 // add more keyboard delay
 let kbdelay = 0;
 
-// search by SKU number
-function searchSKUVariant(data) {
+let newproductDelay = 4000;
+function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN, rbnDE, rbnFR, rbnHK) {
     robot.keyTap('tab', 'alt');
-    robot.keyTap('f', 'control');
-    robot.typeString(data);
-    robot.keyTap('enter');
-}
+    robot.keyTap('home');
+    // Article number
+    robot.moveMouseSmooth(500, 372);
+    robot.mouseClick();
+    robot.typeString(An);
+    // Identifier
+    robot.moveMouseSmooth(882, 372);
+    robot.mouseClick();
+    robot.typeString(Id);
+    // Catalog version
+    robot.moveMouseSmooth(504, 395);
+    robot.mouseClick();
+    robot.moveMouseSmooth(504, 480);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    //Product display
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(526, 493);
+    robot.mouseClick();
+    robot.typeString(Pd);
 
+    //Go to properties tab
+    robot.moveMouseSmooth(395, 320);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(newproductDelay);
+    robot.moveMouseSmooth(375, 943);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.keyTap('pagedown');
+    //Short Promotion Text En
+    ncp.copy(spmEN);
+    robot.moveMouseSmooth(522, 165);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+    //Short Promotion Text De
+    ncp.copy(spmDE);
+    robot.moveMouseSmooth(522, 183);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+    //Short Promotion Text Fr
+    ncp.copy(spmFR);
+    robot.moveMouseSmooth(522, 326);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+    //Short Promotion Text Hk
+    ncp.copy(spmHK);
+    robot.moveMouseSmooth(522, 506);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+
+    //go to Catagory System tab
+    robot.moveMouseSmooth(1148, 708);
+    robot.mouseClick();
+    robot.keyTap('home');
+    robot.moveMouseSmooth(605, 320);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(489, 634);
+    robot.mouseClick('right');
+    robot.moveMouseSmooth(562, 683);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(477, 215);
+    robot.mouseClick();
+    robot.moveMouseSmooth(469, 265);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(630, 324);
+    robot.mouseClick();
+    robot.moveMouseSmooth(622, 408);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(621, 266);
+    robot.mouseClick();
+    robot.typeString(Cs);
+    robot.setMouseDelay(newproductDelay);
+    robot.keyTap('enter');
+    robot.moveMouseSmooth(630, 485);
+    robot.setMouseDelay(10);
+    robot.mouseClick('left', true);
+
+    //go to variants tab
+    robot.setMouseDelay(newproductDelay);
+    robot.moveMouseSmooth(804, 320);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(485, 489);
+    robot.mouseClick();
+    robot.keyTap('r');
+    robot.setKeyboardDelay(3000);
+    robot.keyTap('a');
+    robot.setKeyboardDelay(10);
+    robot.keyTap('tab');
+
+    //go to administration tab
+    robot.moveMouseSmooth(407, 342);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    //ribbon color
+    robot.moveMouseSmooth(491, 816);
+    switch (Rb) {
+        case 'green':
+        robot.mouseClick();
+        robot.moveMouseSmooth(484, 848);
+        robot.mouseClick();
+            break;
+
+        case 'blue':
+        robot.mouseClick();
+        robot.moveMouseSmooth(495, 860);
+        robot.mouseClick();
+            break;
+
+        case 'red':
+        robot.mouseClick();
+        robot.moveMouseSmooth(492, 875);
+        robot.mouseClick();
+            break;
+
+        case 'gray':
+        robot.mouseClick();
+        robot.moveMouseSmooth(488, 889);
+        robot.mouseClick();
+            break;
+    
+        default:
+            break;
+    }
+
+    // ribbon name
+    robot.moveMouseSmooth(360, 840);
+    robot.setMouseDelay(newproductDelay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    //ribbon name En
+    ncp.copy(rbnEN);
+    robot.moveMouseSmooth(511, 839);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+    //ribbon name de
+    ncp.copy(rbnDE);
+    robot.moveMouseSmooth(511, 856);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+
+    robot.moveMouseSmooth(1172, 916);
+    robot.mouseClick();
+    robot.keyTap('pagedown');
+    //ribbon name fr
+    ncp.copy(rbnFR);
+    robot.moveMouseSmooth(511, 220);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+    //ribbon name de
+    ncp.copy(rbnHK);
+    robot.moveMouseSmooth(511, 401);
+    robot.mouseClick();
+    robot.keyTap('v', 'control');
+
+}
 
 function createPartnerItem(add, key, keyRepeat) {
     robot.moveMouseSmooth(x, y);
@@ -137,6 +298,7 @@ function createMoreGroupPartnerItem(index) {
     // create HK
     createPartnerItem((mY + imY )*(index +3), 'h', 1);
 }
+
 // create partner products by number
 function createPartnerProduct(num) {
         robot.keyTap('tab', 'alt');
@@ -257,7 +419,7 @@ var callback = function(code, data, err)
     const arrData = data.split(',');
     switch (arrData[0]) {
         case '1':
-        searchSKUVariant(arrData[1]);
+        createNewProduct(arrData[1], arrData[2], arrData[3], arrData[4], arrData[5], arrData[6], arrData[7], arrData[8], arrData[9], arrData[10], arrData[11], arrData[12], arrData[13])
         break;
         
         case '2':
@@ -283,8 +445,7 @@ var callback = function(code, data, err)
     // robot.moveMouse(205, 300);
     // robot.mouseClick();
 }
-
-dialog.entry(`1 - Search by SKU Number (Variants)
+dialog.entry(`1 - Create new Product (Article Number, Identifier, Product Display, Short Promotion Text 4 Langs, Catagory, Ribbon Color, Ribbon name 4 langs)
 2 - Create Partner Products in Promotion (Number of partner products)
 3 - Create new Promotion Partner (Title, Description, Name of Base Product)`, "Enter action", 0, callback);
 
