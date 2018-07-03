@@ -64,6 +64,7 @@ let delay = 2000;
 // add more keyboard delay
 let kbdelay = 0;
 
+//delay for createNewProductMouse
 let newproductDelay = 4000;
 function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN, rbnDE, rbnFR, rbnHK) {
     robot.keyTap('tab', 'alt');
@@ -96,26 +97,26 @@ function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN,
     robot.moveMouseSmooth(375, 943);
     robot.mouseClick();
     robot.setMouseDelay(10);
-    robot.keyTap('pagedown');
     //Short Promotion Text En
     ncp.copy(spmEN);
-    robot.moveMouseSmooth(522, 165);
+    robot.moveMouseSmooth(525, 944);
     robot.mouseClick();
     robot.keyTap('v', 'control');
     //Short Promotion Text De
     ncp.copy(spmDE);
-    robot.moveMouseSmooth(522, 183);
-    robot.mouseClick();
+    robot.keyTap('tab');
     robot.keyTap('v', 'control');
     //Short Promotion Text Fr
     ncp.copy(spmFR);
-    robot.moveMouseSmooth(522, 326);
-    robot.mouseClick();
+    for(let i =0; i< 8; i++) {
+        robot.keyTap('tab');
+    }
     robot.keyTap('v', 'control');
     //Short Promotion Text Hk
     ncp.copy(spmHK);
-    robot.moveMouseSmooth(522, 506);
-    robot.mouseClick();
+    for(let i =0; i< 10; i++) {
+        robot.keyTap('tab');
+    }
     robot.keyTap('v', 'control');
 
     //go to Catagory System tab
@@ -214,22 +215,19 @@ function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN,
     robot.keyTap('v', 'control');
     //ribbon name de
     ncp.copy(rbnDE);
-    robot.moveMouseSmooth(511, 856);
-    robot.mouseClick();
+    robot.keyTap('tab');
     robot.keyTap('v', 'control');
-
-    robot.moveMouseSmooth(1172, 916);
-    robot.mouseClick();
-    robot.keyTap('pagedown');
     //ribbon name fr
     ncp.copy(rbnFR);
-    robot.moveMouseSmooth(511, 220);
-    robot.mouseClick();
+    for(let i =0; i< 8; i++) {
+        robot.keyTap('tab');
+    }
     robot.keyTap('v', 'control');
     //ribbon name de
     ncp.copy(rbnHK);
-    robot.moveMouseSmooth(511, 401);
-    robot.mouseClick();
+    for(let i =0; i< 10; i++) {
+        robot.keyTap('tab');
+    }
     robot.keyTap('v', 'control');
 
 }
