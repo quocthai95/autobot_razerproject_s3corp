@@ -51,7 +51,7 @@ let [nx, ny] = [444, 741];
 let [cx, cy] = [608, 670];
 
 // position of partner product
-let [fx, fy] = [781, 670];
+let [fx, fy, flx] = [781, 670, 727];
 
 // add more Y
 let mY = 25;
@@ -59,13 +59,15 @@ let mY = 25;
 imY = 0;
 
 // add more mouse delay
-let delay = 2000;
+let delay = 4000;
 
 // add more keyboard delay
-let kbdelay = 0;
+let kbdelay = 2000;
 
 //delay for createNewProductMouse
 let newproductDelay = 4000;
+
+// Create new Product
 function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN, rbnDE, rbnFR, rbnHK) {
     robot.keyTap('tab', 'alt');
     robot.keyTap('home');
@@ -232,6 +234,8 @@ function createNewProduct(An, Id, Pd, spmEN, spmDE, spmFR, spmHK, Cs, Rb, rbnEN,
 
 }
 
+// Create Partner Products in Promotion
+
 function createPartnerItem(add, key, keyRepeat) {
     robot.moveMouseSmooth(x, y);
     robot.mouseClick('right');
@@ -311,6 +315,169 @@ function createPartnerProduct(num) {
                     createMoreGroupPartnerItem(0);
                 }
             }
+        }
+}
+
+// Create Partner Products in Promotion By SKUs number
+
+function createPartnerItemBySKUs(add, key, keyRepeat, SKU, Local) {
+    robot.keyTap('end');
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(x, y);
+    robot.mouseClick('right');
+    robot.moveMouseSmooth(nx, ny);
+    robot.setMouseDelay(3000 + delay);
+    robot.mouseClick();
+    robot.keyTap('end');
+    robot.setMouseDelay(2000 + delay);
+    robot.moveMouseSmooth(fx, fy + add);
+    robot.setMouseDelay(10);
+    robot.mouseClick();
+    for(let i =0; i< keyRepeat ; i++) {
+        robot.keyTap(key);
+    }
+    robot.setMouseDelay(4000 + delay);
+    robot.setKeyboardDelay(3000 + kbdelay);
+    robot.keyTap('enter');
+    robot.setKeyboardDelay(10);
+    robot.keyTap('end');
+    robot.setMouseDelay(2000 + delay);
+    robot.moveMouseSmooth(flx, cy + add);
+    robot.setMouseDelay(4000 + delay);
+    robot.mouseClick();
+    robot.setMouseDelay(10);
+    robot.moveMouseSmooth(631, 323);
+    robot.mouseClick();
+
+    switch (Local) {
+        case 'US':
+            for(let i = 0; i < 27; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+
+        case 'CA':
+            for(let i = 0; i < 9; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'EU':
+            for(let i = 0; i < 17; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'DE':
+            for(let i = 0; i < 13; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'FR':
+            for(let i = 0; i < 19; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'UK':
+            for(let i = 0; i < 25; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'SG':
+            for(let i = 0; i < 23; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+        case 'HK':
+            for(let i = 0; i < 21; i++) {
+                robot.keyTap('down');
+            }
+            robot.keyTap('enter');
+            break;
+    
+        default:
+            break;
+    }
+
+    robot.setMouseDelay(4000 + delay);
+    robot.moveMouseSmooth(625, 267);
+    robot.setMouseDelay(10);
+    robot.mouseClick();
+    robot.typeString(SKU);
+    robot.keyTap('enter');
+    robot.setMouseDelay(4000 + delay);
+    robot.moveMouseSmooth(588, 542);
+    robot.setMouseDelay(10);
+    robot.setMouseDelay(4000 + delay);
+    robot.mouseClick('left', true);
+
+}
+
+function createGroupPartnerItemBySKUs(USCA, EU, AP) {
+      // create US
+      createPartnerItemBySKUs((mY + imY )*(0), 'u', 3, USCA, 'US');
+      // create CA
+      createPartnerItemBySKUs((mY + imY )*(1), 'c', 1, USCA, 'CA');
+      // create EU
+      createPartnerItemBySKUs((mY + imY )*(2), 'e', 7, EU, 'EU');
+      // create DE
+      createPartnerItemBySKUs((mY + imY )*(3), 'e', 7, EU, 'DE');
+      // create FR
+      createPartnerItemBySKUs((mY + imY )*(3), 'e', 7, EU, 'FR');
+      // create UK
+      createPartnerItemBySKUs((mY + imY )*(3), 'g', 1, EU, 'UK');
+      // create SG
+      createPartnerItemBySKUs((mY + imY )*(3), 's', 7, AP, 'SG');
+      // create HK
+      createPartnerItemBySKUs((mY + imY )*(3), 'h', 1, AP, 'HK');
+}
+
+function createMoreGroupPartnerItemBySKUs(USCA, EU, AP) {
+    // create US
+    createPartnerItemBySKUs((mY + imY )*(3), 'u', 3, USCA, 'US');
+    // create CA
+    createPartnerItemBySKUs((mY + imY )*(3), 'c', 1, USCA, 'CA');
+    // create EU
+    createPartnerItemBySKUs((mY + imY )*(3), 'e', 7, EU, 'EU');
+    // create DE
+    createPartnerItemBySKUs((mY + imY )*(3), 'e', 7, EU, 'DE');
+    // create FR
+    createPartnerItemBySKUs((mY + imY )*(3), 'e', 7, EU, 'FR');
+    // create UK
+    createPartnerItemBySKUs((mY + imY )*(3), 'g', 1, EU, 'UK');
+    // create SG
+    createPartnerItemBySKUs((mY + imY )*(3), 's', 7, AP, 'SG');
+    // create HK
+    createPartnerItemBySKUs((mY + imY )*(3), 'h', 1, AP, 'HK');
+}
+
+// create partner products by number
+function createPartnerProductBySKUs(arr) {
+        robot.keyTap('tab', 'alt');
+        robot.keyTap('end');
+        if ( arr.length < 4) {
+            createGroupPartnerItemBySKUs( arr[0], arr[1], arr[2]);
+        } else {
+            for (let i = 0; i < arr.length; i+=3) {
+                if(i < 3 ) {
+                    createGroupPartnerItemBySKUs( arr[i], arr[i+1], arr[i+2]);
+                } else {
+                    createMoreGroupPartnerItemBySKUs( arr[i], arr[i+1], arr[i+2]);
+                }
+            }
+        }
+}
+
+function addPartnerProductBySKUs(arr) {
+        robot.keyTap('tab', 'alt');
+        robot.keyTap('end');
+        for (let i = 0; i < arr.length; i+=3) {
+            createMoreGroupPartnerItemBySKUs( arr[i], arr[i+1], arr[i+2]);
         }
 }
 
@@ -425,6 +592,14 @@ var callback = function(code, data, err)
         break;
 
         case '3':
+        createPartnerProductBySKUs(arrData[1].split('/'));
+        break;
+
+        case '4':
+        addPartnerProductBySKUs(arrData[1].split('/'));
+        break;
+
+        case '5':
         createPromotionFillData(arrData);
         break;
 
@@ -445,6 +620,8 @@ var callback = function(code, data, err)
 }
 dialog.entry(`1 - Create new Product (Article Number, Identifier, Product Display, Short Promotion Text 4 Langs, Catagory, Ribbon Color, Ribbon name 4 langs)
 2 - Create Partner Products in Promotion (Number of partner products)
-3 - Create new Promotion Partner (Title, Description, Name of Base Product)`, "Enter action", 0, callback);
+3 - Create Partner Products in Promotion by SKUs Number (Array of SKUs - USCA/EU/AP SKU)
+4 - Add More Partner Products in Promotion by SKUs Number (Array of SKUs - USCA/EU/AP SKU)
+5 - Create new Promotion Partner (Title, Description, Name of Base Product)`, "Enter action", 0, callback);
 
 
